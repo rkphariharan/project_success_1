@@ -1,222 +1,239 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
-import { Car, DollarSign, TrendingUp, Users, Calendar, Search, Filter, Plus } from "lucide-react";
-import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { cars, revenueData, inventoryByStatus, monthlyRevenue } from "@/lib/mockData";
+import { useState } from 'react';
+import {
+  LineChart,
+  Line,
+  PieChart,
+  Pie,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Cell,
+} from 'recharts';
+import { Car, CheckCircle, Clock, DollarSign, Filter } from 'lucide-react';
+import { mockCars, dailyStats, serviceDistribution, monthlyRevenue } from '@/lib/mockData';
 
-export default function Home() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
+export default function Dashboard() {
+  const [statusFilter, setStatusFilter] = useState<string>('All');
 
-  const filteredCars = cars.filter(car => {
-    const matchesSearch = car.make.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         car.model.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         car.vin.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === "all" || car.status === statusFilter;
-    return matchesSearch && matchesStatus;
-  });
+  // Calculate statistics
+  const carsInService = mockCars.filter((car) => car.status === 'In Service').length;
+  const carsCompleted = mockCars.filter((car) => car.status === 'Completed').length;
+  const carsPendingDelivery = mockCars.filter((car) => car.status === 'Pending Delivery').length;
+  const monthlyRevenueTotal = monthlyRevenue[monthlyRevenue.length - 1].revenue;
 
-  const totalInventoryValue = cars.reduce((sum, car) => sum + car.price, 0);
-  const totalRevenue = revenueData.totalSold;
-  const avgDaysInInventory = Math.round(cars.reduce((sum, car) => sum + car.daysInInventory, 0) / cars.length);
-
-  const statusColors = {
-    available: "#a855f7",
-    pending: "#f59e0b",
-    sold: "#22c55e",
-    service: "#3b82f6"
-  };
+  // Filter cars
+  const filteredCars = statusFilter === 'All'
+    ? mockCars
+    : mockCars.filter((car) => car.status === statusFilter);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <div className="container mx-auto px-6 py-8">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-4xl font-bold text-white mb-2">Premium Auto CRM</h1>
-            <p className="text-purple-300">Dealer Management Dashboard</p>
+    <div className="space-y-8">
+      {/* Header */}
+      <div>
+        <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
+        <p className="text-gray-400">Overview of your car service operations</p>
+      </div>
+
+      {/* Stat Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
+          <div className="flex items-center justify-between mb-4">
+            <Car className="w-8 h-8 text-purple-400" />
+            <span className="text-2xl font-bold text-white">{carsInService}</span>
           </div>
-          <Link
-            href="/add-car"
-            className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
-          >
-            <Plus size={20} />
-            Add New Car
-          </Link>
+          <h3 className="text-gray-400 text-sm">Cars In Service</h3>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-purple-500/20 rounded-lg">
-                <Car className="text-purple-400" size={24} />
-              </div>
-              <span className="text-sm text-purple-300">Total Inventory</span>
-            </div>
-            <div className="text-3xl font-bold text-white mb-1">{cars.length}</div>
-            <div className="text-sm text-gray-400">vehicles in stock</div>
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
+          <div className="flex items-center justify-between mb-4">
+            <CheckCircle className="w-8 h-8 text-green-400" />
+            <span className="text-2xl font-bold text-white">{carsCompleted}</span>
           </div>
-
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-amber-500/20 rounded-lg">
-                <DollarSign className="text-amber-400" size={24} />
-              </div>
-              <span className="text-sm text-purple-300">Inventory Value</span>
-            </div>
-            <div className="text-3xl font-bold text-white mb-1">
-              ${(totalInventoryValue / 1000000).toFixed(1)}M
-            </div>
-            <div className="text-sm text-gray-400">total value</div>
-          </div>
-
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-green-500/20 rounded-lg">
-                <TrendingUp className="text-green-400" size={24} />
-              </div>
-              <span className="text-sm text-purple-300">Monthly Revenue</span>
-            </div>
-            <div className="text-3xl font-bold text-white mb-1">
-              ${(totalRevenue / 1000000).toFixed(2)}M
-            </div>
-            <div className="text-sm text-green-400">+12.5% from last month</div>
-          </div>
-
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="p-3 bg-blue-500/20 rounded-lg">
-                <Calendar className="text-blue-400" size={24} />
-              </div>
-              <span className="text-sm text-purple-300">Avg. Days in Stock</span>
-            </div>
-            <div className="text-3xl font-bold text-white mb-1">{avgDaysInInventory}</div>
-            <div className="text-sm text-gray-400">days average</div>
-          </div>
+          <h3 className="text-gray-400 text-sm">Completed</h3>
         </div>
 
-        {/* Charts Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Monthly Revenue Chart */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-            <h2 className="text-xl font-bold text-white mb-4">Monthly Revenue Trend</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={monthlyRevenue}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                <XAxis dataKey="month" stroke="#9ca3af" />
-                <YAxis stroke="#9ca3af" />
-                <Tooltip
-                  contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #8b5cf6', borderRadius: '8px' }}
-                  labelStyle={{ color: '#e5e7eb' }}
-                />
-                <Legend />
-                <Line type="monotone" dataKey="revenue" stroke="#a855f7" strokeWidth={3} name="Revenue ($)" />
-              </LineChart>
-            </ResponsiveContainer>
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
+          <div className="flex items-center justify-between mb-4">
+            <Clock className="w-8 h-8 text-gold-400" />
+            <span className="text-2xl font-bold text-white">{carsPendingDelivery}</span>
           </div>
-
-          {/* Inventory by Status */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-            <h2 className="text-xl font-bold text-white mb-4">Inventory by Status</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={inventoryByStatus}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={({ name, value }) => `${name}: ${value}`}
-                  outerRadius={100}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {inventoryByStatus.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={statusColors[entry.name.toLowerCase() as keyof typeof statusColors]} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #8b5cf6', borderRadius: '8px' }}
-                />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
+          <h3 className="text-gray-400 text-sm">Pending Delivery</h3>
         </div>
 
-        {/* Inventory Table */}
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-white">Current Inventory</h2>
-            <div className="flex gap-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                <input
-                  type="text"
-                  placeholder="Search by make, model, VIN..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 bg-slate-700 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500"
-                />
-              </div>
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="px-4 py-2 bg-slate-700 border border-purple-500/30 rounded-lg text-white focus:outline-none focus:border-purple-500"
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
+          <div className="flex items-center justify-between mb-4">
+            <DollarSign className="w-8 h-8 text-gold-400" />
+            <span className="text-2xl font-bold text-white">
+              ₹{monthlyRevenueTotal.toLocaleString()}
+            </span>
+          </div>
+          <h3 className="text-gray-400 text-sm">Monthly Revenue</h3>
+        </div>
+      </div>
+
+      {/* Charts Row 1 */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Daily Intake/Delivery Trends */}
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
+          <h3 className="text-xl font-semibold text-white mb-4">Daily Trends</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={dailyStats}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <XAxis dataKey="date" stroke="#9ca3af" />
+              <YAxis stroke="#9ca3af" />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: '#1e293b',
+                  border: '1px solid #6b21a8',
+                  borderRadius: '8px',
+                }}
+              />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="intake"
+                stroke="#a855f7"
+                strokeWidth={2}
+                name="Intake"
+              />
+              <Line
+                type="monotone"
+                dataKey="delivery"
+                stroke="#fbbf24"
+                strokeWidth={2}
+                name="Delivery"
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Service Type Distribution */}
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
+          <h3 className="text-xl font-semibold text-white mb-4">Service Distribution</h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={serviceDistribution}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
               >
-                <option value="all">All Status</option>
-                <option value="available">Available</option>
-                <option value="pending">Pending</option>
-                <option value="sold">Sold</option>
-                <option value="service">Service</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-purple-500/20">
-                  <th className="text-left py-4 px-4 text-purple-300 font-semibold">VIN</th>
-                  <th className="text-left py-4 px-4 text-purple-300 font-semibold">Vehicle</th>
-                  <th className="text-left py-4 px-4 text-purple-300 font-semibold">Year</th>
-                  <th className="text-left py-4 px-4 text-purple-300 font-semibold">Price</th>
-                  <th className="text-left py-4 px-4 text-purple-300 font-semibold">Mileage</th>
-                  <th className="text-left py-4 px-4 text-purple-300 font-semibold">Days in Stock</th>
-                  <th className="text-left py-4 px-4 text-purple-300 font-semibold">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredCars.map((car) => (
-                  <tr key={car.vin} className="border-b border-slate-700/50 hover:bg-slate-700/30 transition-colors">
-                    <td className="py-4 px-4 text-gray-300 font-mono text-sm">{car.vin}</td>
-                    <td className="py-4 px-4">
-                      <div className="font-semibold text-white">{car.make} {car.model}</div>
-                      <div className="text-sm text-gray-400">{car.trim}</div>
-                    </td>
-                    <td className="py-4 px-4 text-gray-300">{car.year}</td>
-                    <td className="py-4 px-4 text-amber-400 font-semibold">
-                      ${car.price.toLocaleString()}
-                    </td>
-                    <td className="py-4 px-4 text-gray-300">{car.mileage.toLocaleString()} mi</td>
-                    <td className="py-4 px-4 text-gray-300">{car.daysInInventory} days</td>
-                    <td className="py-4 px-4">
-                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                        car.status === 'available' ? 'bg-purple-500/20 text-purple-300' :
-                        car.status === 'pending' ? 'bg-amber-500/20 text-amber-300' :
-                        car.status === 'sold' ? 'bg-green-500/20 text-green-300' :
-                        'bg-blue-500/20 text-blue-300'
-                      }`}>
-                        {car.status.charAt(0).toUpperCase() + car.status.slice(1)}
-                      </span>
-                    </td>
-                  </tr>
+                {serviceDistribution.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.fill} />
                 ))}
-              </tbody>
-            </table>
+              </Pie>
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: '#1e293b',
+                  border: '1px solid #6b21a8',
+                  borderRadius: '8px',
+                }}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Monthly Revenue Chart */}
+      <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
+        <h3 className="text-xl font-semibold text-white mb-4">Monthly Revenue</h3>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={monthlyRevenue}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+            <XAxis dataKey="month" stroke="#9ca3af" />
+            <YAxis stroke="#9ca3af" />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: '#1e293b',
+                border: '1px solid #6b21a8',
+                borderRadius: '8px',
+              }}
+            />
+            <Legend />
+            <Bar dataKey="revenue" fill="#a855f7" name="Revenue (₹)" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Recent Cars Table */}
+      <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-xl font-semibold text-white">Recent Cars</h3>
+          <div className="flex items-center space-x-2">
+            <Filter className="w-4 h-4 text-gray-400" />
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="bg-slate-700 text-white border border-purple-500/20 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+            >
+              <option value="All">All Status</option>
+              <option value="In Service">In Service</option>
+              <option value="Completed">Completed</option>
+              <option value="Pending Delivery">Pending Delivery</option>
+            </select>
           </div>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-purple-500/20">
+                <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Car</th>
+                <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Owner</th>
+                <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Contact</th>
+                <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Service Type</th>
+                <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Status</th>
+                <th className="text-left py-3 px-4 text-gray-400 font-medium text-sm">Delivery Date</th>
+                <th className="text-right py-3 px-4 text-gray-400 font-medium text-sm">Charge</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredCars.map((car) => (
+                <tr
+                  key={car.id}
+                  className="border-b border-purple-500/10 hover:bg-slate-700/30 transition-colors"
+                >
+                  <td className="py-3 px-4">
+                    <div className="text-white font-medium">{car.name}</div>
+                    <div className="text-gray-400 text-sm">
+                      {car.model} ({car.year})
+                    </div>
+                  </td>
+                  <td className="py-3 px-4 text-gray-300">{car.ownerName}</td>
+                  <td className="py-3 px-4 text-gray-300">{car.contact}</td>
+                  <td className="py-3 px-4 text-gray-300">{car.serviceType}</td>
+                  <td className="py-3 px-4">
+                    <span
+                      className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                        car.status === 'In Service'
+                          ? 'bg-blue-500/20 text-blue-400'
+                          : car.status === 'Completed'
+                          ? 'bg-green-500/20 text-green-400'
+                          : 'bg-gold-500/20 text-gold-400'
+                      }`}
+                    >
+                      {car.status}
+                    </span>
+                  </td>
+                  <td className="py-3 px-4 text-gray-300">{car.deliveryDate}</td>
+                  <td className="py-3 px-4 text-right text-white font-medium">
+                    ₹{car.serviceCharge.toLocaleString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

@@ -1,121 +1,167 @@
 export interface Car {
-  vin: string;
-  make: string;
+  id: string;
+  name: string;
   model: string;
-  trim: string;
   year: number;
-  mileage: number;
-  price: number;
-  color: string;
-  status: 'available' | 'pending' | 'sold' | 'service';
-  daysInInventory: number;
-  condition: 'new' | 'used' | 'certified';
+  fuelType: 'Petrol' | 'Diesel' | 'Electric' | 'Hybrid';
+  ownerName: string;
+  contact: string;
+  email: string;
+  kmRun: number;
+  complaints: string;
+  deliveryDate: string;
+  status: 'In Service' | 'Completed' | 'Pending Delivery';
+  serviceType: 'General Maintenance' | 'Major Repair' | 'Body Work' | 'Electrical' | 'AC Service';
+  serviceCharge: number;
+  intakeDate: string;
 }
 
-export const cars: Car[] = [
+export interface DailyStats {
+  date: string;
+  intake: number;
+  delivery: number;
+}
+
+export interface ServiceDistribution {
+  name: string;
+  value: number;
+  fill: string;
+}
+
+export interface MonthlyRevenue {
+  month: string;
+  revenue: number;
+}
+
+export const mockCars: Car[] = [
   {
-    vin: "5UXCR6C0XL9C74429",
-    make: "BMW",
-    model: "X5",
-    trim: "M50i",
-    year: 2023,
-    mileage: 8500,
-    price: 82500,
-    color: "Alpine White",
-    status: "available",
-    daysInInventory: 12,
-    condition: "used"
+    id: '1',
+    name: 'Honda City',
+    model: 'VX',
+    year: 2020,
+    fuelType: 'Petrol',
+    ownerName: 'Rajesh Kumar',
+    contact: '+91 98765 43210',
+    email: 'rajesh.kumar@example.com',
+    kmRun: 45000,
+    complaints: 'Engine noise and AC cooling issue',
+    deliveryDate: '2026-10-12',
+    status: 'In Service',
+    serviceType: 'General Maintenance',
+    serviceCharge: 8500,
+    intakeDate: '2026-10-06',
   },
   {
-    vin: "1G1YZ23J9P5800001",
-    make: "Mercedes-Benz",
-    model: "S-Class",
-    trim: "S 500 4MATIC",
+    id: '2',
+    name: 'Maruti Swift',
+    model: 'ZXi',
+    year: 2019,
+    fuelType: 'Petrol',
+    ownerName: 'Priya Sharma',
+    contact: '+91 87654 32109',
+    email: 'priya.sharma@example.com',
+    kmRun: 62000,
+    complaints: 'Brake pads replacement needed',
+    deliveryDate: '2026-10-10',
+    status: 'Completed',
+    serviceType: 'Major Repair',
+    serviceCharge: 12000,
+    intakeDate: '2026-10-04',
+  },
+  {
+    id: '3',
+    name: 'Hyundai Creta',
+    model: 'SX',
+    year: 2021,
+    fuelType: 'Diesel',
+    ownerName: 'Amit Patel',
+    contact: '+91 76543 21098',
+    email: 'amit.patel@example.com',
+    kmRun: 38000,
+    complaints: 'Routine service and oil change',
+    deliveryDate: '2026-10-09',
+    status: 'Pending Delivery',
+    serviceType: 'General Maintenance',
+    serviceCharge: 5500,
+    intakeDate: '2026-10-05',
+  },
+  {
+    id: '4',
+    name: 'Tata Nexon',
+    model: 'XZ+',
     year: 2022,
-    mileage: 15200,
-    price: 89500,
-    color: "Obsidian Black",
-    status: "available",
-    daysInInventory: 23,
-    condition: "certified"
+    fuelType: 'Electric',
+    ownerName: 'Sneha Reddy',
+    contact: '+91 65432 10987',
+    email: 'sneha.reddy@example.com',
+    kmRun: 15000,
+    complaints: 'Battery health check and software update',
+    deliveryDate: '2026-10-11',
+    status: 'In Service',
+    serviceType: 'Electrical',
+    serviceCharge: 7000,
+    intakeDate: '2026-10-07',
   },
   {
-    vin: "WBAPL7C55CB000123",
-    make: "Porsche",
-    model: "911",
-    trim: "Carrera S",
+    id: '5',
+    name: 'Mahindra XUV700',
+    model: 'AX7',
     year: 2023,
-    mileage: 3200,
-    price: 135000,
-    color: "Guards Red",
-    status: "pending",
-    daysInInventory: 8,
-    condition: "used"
+    fuelType: 'Diesel',
+    ownerName: 'Vikram Singh',
+    contact: '+91 54321 09876',
+    email: 'vikram.singh@example.com',
+    kmRun: 22000,
+    complaints: 'Suspension issues and wheel alignment',
+    deliveryDate: '2026-10-13',
+    status: 'In Service',
+    serviceType: 'Major Repair',
+    serviceCharge: 15000,
+    intakeDate: '2026-10-06',
   },
   {
-    vin: "5YJSA1E26HF200456",
-    make: "Audi",
-    model: "RS7",
-    trim: "Performance",
-    year: 2022,
-    mileage: 12800,
-    price: 118000,
-    color: "Nardo Grey",
-    status: "available",
-    daysInInventory: 31,
-    condition: "certified"
+    id: '6',
+    name: 'Kia Seltos',
+    model: 'GTX',
+    year: 2021,
+    fuelType: 'Petrol',
+    ownerName: 'Neha Gupta',
+    contact: '+91 43210 98765',
+    email: 'neha.gupta@example.com',
+    kmRun: 51000,
+    complaints: 'AC compressor replacement',
+    deliveryDate: '2026-10-08',
+    status: 'Completed',
+    serviceType: 'AC Service',
+    serviceCharge: 18000,
+    intakeDate: '2026-10-03',
   },
-  {
-    vin: "WAUZZZ4G7DN123789",
-    make: "Lexus",
-    model: "LS",
-    trim: "500 F Sport",
-    year: 2023,
-    mileage: 5400,
-    price: 92000,
-    color: "Sonic Silver",
-    status: "sold",
-    daysInInventory: 15,
-    condition: "used"
-  },
-  {
-    vin: "JN1AZ4EH8FM456321",
-    make: "Range Rover",
-    model: "Sport",
-    trim: "Autobiography",
-    year: 2022,
-    mileage: 18500,
-    price: 98500,
-    color: "Santorini Black",
-    status: "available",
-    daysInInventory: 27,
-    condition: "used"
-  }
 ];
 
-export const revenueData = {
-  totalSold: 2450000,
-  monthlyAverage: 408333,
-  yearToDate: 14700000
-};
-
-export const inventoryByStatus = [
-  { name: "Available", value: 4 },
-  { name: "Pending", value: 1 },
-  { name: "Sold", value: 1 }
+export const dailyStats: DailyStats[] = [
+  { date: 'Oct 1', intake: 4, delivery: 3 },
+  { date: 'Oct 2', intake: 3, delivery: 5 },
+  { date: 'Oct 3', intake: 5, delivery: 2 },
+  { date: 'Oct 4', intake: 6, delivery: 4 },
+  { date: 'Oct 5', intake: 4, delivery: 6 },
+  { date: 'Oct 6', intake: 7, delivery: 3 },
+  { date: 'Oct 7', intake: 5, delivery: 5 },
 ];
 
-export const monthlyRevenue = [
-  { month: "Jan", revenue: 380000 },
-  { month: "Feb", revenue: 420000 },
-  { month: "Mar", revenue: 485000 },
-  { month: "Apr", revenue: 445000 },
-  { month: "May", revenue: 520000 },
-  { month: "Jun", revenue: 495000 },
-  { month: "Jul", revenue: 540000 },
-  { month: "Aug", revenue: 580000 },
-  { month: "Sep", revenue: 615000 },
-  { month: "Oct", revenue: 650000 },
-  { month: "Nov", revenue: 620000 },
-  { month: "Dec", revenue: 695000 }
+export const serviceDistribution: ServiceDistribution[] = [
+  { name: 'General Maintenance', value: 35, fill: '#a855f7' },
+  { name: 'Major Repair', value: 30, fill: '#c084fc' },
+  { name: 'Body Work', value: 15, fill: '#e9d5ff' },
+  { name: 'Electrical', value: 12, fill: '#fbbf24' },
+  { name: 'AC Service', value: 8, fill: '#fde68a' },
+];
+
+export const monthlyRevenue: MonthlyRevenue[] = [
+  { month: 'Apr', revenue: 145000 },
+  { month: 'May', revenue: 168000 },
+  { month: 'Jun', revenue: 152000 },
+  { month: 'Jul', revenue: 178000 },
+  { month: 'Aug', revenue: 195000 },
+  { month: 'Sep', revenue: 182000 },
+  { month: 'Oct', revenue: 210000 },
 ];
