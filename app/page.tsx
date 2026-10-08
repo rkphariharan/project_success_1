@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import {
   LineChart,
   Line,
@@ -16,7 +17,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from 'recharts';
-import { Car, CheckCircle, Clock, DollarSign, Filter } from 'lucide-react';
+import { Car, CheckCircle, Clock, DollarSign, Filter, Plus, Phone, User } from 'lucide-react';
 import { mockCars, dailyStats, serviceDistribution, monthlyRevenue } from '@/lib/mockData';
 
 export default function Dashboard() {
@@ -34,68 +35,69 @@ export default function Dashboard() {
     : mockCars.filter((car) => car.status === statusFilter);
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
-        <p className="text-gray-400">Overview of your car service operations</p>
+    <div className="space-y-4 md:space-y-8 pb-20 md:pb-8">
+      {/* Header - Mobile Optimized */}
+      <div className="px-1">
+        <h1 className="text-2xl md:text-3xl font-bold text-white mb-1">Dashboard</h1>
+        <p className="text-sm md:text-base text-gray-400">Service operations overview</p>
       </div>
 
-      {/* Stat Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
-          <div className="flex items-center justify-between mb-4">
-            <Car className="w-8 h-8 text-purple-400" />
-            <span className="text-2xl font-bold text-white">{carsInService}</span>
+      {/* Stat Cards - 2x2 Grid on Mobile */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-3 md:p-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-2 md:space-y-0 md:mb-4">
+            <Car className="w-6 h-6 md:w-8 md:h-8 text-purple-400" />
+            <span className="text-xl md:text-2xl font-bold text-white">{carsInService}</span>
           </div>
-          <h3 className="text-gray-400 text-sm">Cars In Service</h3>
+          <h3 className="text-gray-400 text-xs md:text-sm">In Service</h3>
         </div>
 
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
-          <div className="flex items-center justify-between mb-4">
-            <CheckCircle className="w-8 h-8 text-green-400" />
-            <span className="text-2xl font-bold text-white">{carsCompleted}</span>
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-3 md:p-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-2 md:space-y-0 md:mb-4">
+            <CheckCircle className="w-6 h-6 md:w-8 md:h-8 text-green-400" />
+            <span className="text-xl md:text-2xl font-bold text-white">{carsCompleted}</span>
           </div>
-          <h3 className="text-gray-400 text-sm">Completed</h3>
+          <h3 className="text-gray-400 text-xs md:text-sm">Completed</h3>
         </div>
 
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
-          <div className="flex items-center justify-between mb-4">
-            <Clock className="w-8 h-8 text-gold-400" />
-            <span className="text-2xl font-bold text-white">{carsPendingDelivery}</span>
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-3 md:p-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-2 md:space-y-0 md:mb-4">
+            <Clock className="w-6 h-6 md:w-8 md:h-8 text-gold-400" />
+            <span className="text-xl md:text-2xl font-bold text-white">{carsPendingDelivery}</span>
           </div>
-          <h3 className="text-gray-400 text-sm">Pending Delivery</h3>
+          <h3 className="text-gray-400 text-xs md:text-sm">Pending</h3>
         </div>
 
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
-          <div className="flex items-center justify-between mb-4">
-            <DollarSign className="w-8 h-8 text-gold-400" />
-            <span className="text-2xl font-bold text-white">
-              ₹{monthlyRevenueTotal.toLocaleString()}
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-3 md:p-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-2 md:space-y-0 md:mb-4">
+            <DollarSign className="w-6 h-6 md:w-8 md:h-8 text-gold-400" />
+            <span className="text-base md:text-2xl font-bold text-white">
+              ₹{(monthlyRevenueTotal / 1000).toFixed(0)}k
             </span>
           </div>
-          <h3 className="text-gray-400 text-sm">Monthly Revenue</h3>
+          <h3 className="text-gray-400 text-xs md:text-sm">Revenue</h3>
         </div>
       </div>
 
-      {/* Charts Row 1 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Charts - Mobile Optimized */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         {/* Daily Intake/Delivery Trends */}
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
-          <h3 className="text-xl font-semibold text-white mb-4">Daily Trends</h3>
-          <ResponsiveContainer width="100%" height={300}>
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-4 md:p-6">
+          <h3 className="text-lg md:text-xl font-semibold text-white mb-3 md:mb-4">Daily Trends</h3>
+          <ResponsiveContainer width="100%" height={200}>
             <LineChart data={dailyStats}>
               <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-              <XAxis dataKey="date" stroke="#9ca3af" />
-              <YAxis stroke="#9ca3af" />
+              <XAxis dataKey="date" stroke="#9ca3af" tick={{ fontSize: 11 }} />
+              <YAxis stroke="#9ca3af" tick={{ fontSize: 11 }} />
               <Tooltip
                 contentStyle={{
                   backgroundColor: '#1e293b',
                   border: '1px solid #6b21a8',
                   borderRadius: '8px',
+                  fontSize: '12px',
                 }}
               />
-              <Legend />
+              <Legend wrapperStyle={{ fontSize: '12px' }} />
               <Line
                 type="monotone"
                 dataKey="intake"
@@ -115,17 +117,17 @@ export default function Dashboard() {
         </div>
 
         {/* Service Type Distribution */}
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
-          <h3 className="text-xl font-semibold text-white mb-4">Service Distribution</h3>
-          <ResponsiveContainer width="100%" height={300}>
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-4 md:p-6">
+          <h3 className="text-lg md:text-xl font-semibold text-white mb-3 md:mb-4">Distribution</h3>
+          <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <Pie
                 data={serviceDistribution}
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                outerRadius={80}
+                label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`}
+                outerRadius={60}
                 fill="#8884d8"
                 dataKey="value"
               >
@@ -138,6 +140,7 @@ export default function Dashboard() {
                   backgroundColor: '#1e293b',
                   border: '1px solid #6b21a8',
                   borderRadius: '8px',
+                  fontSize: '12px',
                 }}
               />
             </PieChart>
@@ -146,36 +149,37 @@ export default function Dashboard() {
       </div>
 
       {/* Monthly Revenue Chart */}
-      <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
-        <h3 className="text-xl font-semibold text-white mb-4">Monthly Revenue</h3>
-        <ResponsiveContainer width="100%" height={300}>
+      <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-4 md:p-6">
+        <h3 className="text-lg md:text-xl font-semibold text-white mb-3 md:mb-4">Monthly Revenue</h3>
+        <ResponsiveContainer width="100%" height={200}>
           <BarChart data={monthlyRevenue}>
             <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-            <XAxis dataKey="month" stroke="#9ca3af" />
-            <YAxis stroke="#9ca3af" />
+            <XAxis dataKey="month" stroke="#9ca3af" tick={{ fontSize: 11 }} />
+            <YAxis stroke="#9ca3af" tick={{ fontSize: 11 }} />
             <Tooltip
               contentStyle={{
                 backgroundColor: '#1e293b',
                 border: '1px solid #6b21a8',
                 borderRadius: '8px',
+                fontSize: '12px',
               }}
             />
-            <Legend />
+            <Legend wrapperStyle={{ fontSize: '12px' }} />
             <Bar dataKey="revenue" fill="#a855f7" name="Revenue (₹)" />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      {/* Recent Cars Table */}
-      <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-semibold text-white">Recent Cars</h3>
+      {/* Recent Cars - Mobile Cards / Desktop Table */}
+      <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-4 md:p-6">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 space-y-3 md:space-y-0">
+          <h3 className="text-lg md:text-xl font-semibold text-white">Recent Cars</h3>
           <div className="flex items-center space-x-2">
             <Filter className="w-4 h-4 text-gray-400" />
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="bg-slate-700 text-white border border-purple-500/20 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="bg-slate-700 text-white border border-purple-500/20 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[44px]"
             >
               <option value="All">All Status</option>
               <option value="In Service">In Service</option>
@@ -185,7 +189,65 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
+        {/* Mobile: Swipeable Cards */}
+        <div className="md:hidden space-y-3">
+          {filteredCars.map((car) => (
+            <div
+              key={car.id}
+              className="bg-slate-700/30 rounded-lg p-4 border border-purple-500/10 active:bg-slate-700/50 transition-colors"
+            >
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <div className="flex items-center space-x-2 mb-1">
+                    <Car className="w-4 h-4 text-purple-400" />
+                    <h4 className="text-white font-semibold text-base">{car.name}</h4>
+                  </div>
+                  <p className="text-gray-400 text-sm">
+                    {car.model} ({car.year})
+                  </p>
+                </div>
+                <span
+                  className={`inline-block px-2.5 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
+                    car.status === 'In Service'
+                      ? 'bg-blue-500/20 text-blue-400'
+                      : car.status === 'Completed'
+                      ? 'bg-green-500/20 text-green-400'
+                      : 'bg-gold-500/20 text-gold-400'
+                  }`}
+                >
+                  {car.status}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-3 mb-3">
+                <div className="flex items-center space-x-2">
+                  <User className="w-3.5 h-3.5 text-gray-400" />
+                  <span className="text-gray-300 text-sm truncate">{car.ownerName}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Phone className="w-3.5 h-3.5 text-gray-400" />
+                  <span className="text-gray-300 text-sm">{car.contact}</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between pt-3 border-t border-purple-500/10">
+                <div>
+                  <p className="text-gray-400 text-xs mb-0.5">Service</p>
+                  <p className="text-white text-sm font-medium">{car.serviceType}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-gray-400 text-xs mb-0.5">Delivery</p>
+                  <p className="text-white text-sm font-medium">{car.deliveryDate}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-gray-400 text-xs mb-0.5">Charge</p>
+                  <p className="text-gold-400 text-base font-bold">₹{car.serviceCharge.toLocaleString()}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: Table */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-purple-500/20">
@@ -236,6 +298,15 @@ export default function Dashboard() {
           </table>
         </div>
       </div>
+
+      {/* Floating Add Car Button - Mobile Only */}
+      <Link
+        href="/add-car"
+        className="md:hidden fixed bottom-6 right-6 bg-purple-600 hover:bg-purple-700 text-white rounded-full p-4 shadow-lg flex items-center justify-center z-40 active:scale-95 transition-all"
+        style={{ width: '56px', height: '56px' }}
+      >
+        <Plus className="w-6 h-6" />
+      </Link>
     </div>
   );
 }

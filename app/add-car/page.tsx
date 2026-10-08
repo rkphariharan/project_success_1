@@ -76,26 +76,26 @@ export default function AddCar() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-8">
-        {/* Header */}
-        <div className="flex items-center space-x-3 mb-6">
-          <Car className="w-8 h-8 text-purple-400" />
+    <div className="max-w-4xl mx-auto pb-6">
+      <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-lg p-4 md:p-8">
+        {/* Header - Mobile Optimized */}
+        <div className="flex items-center space-x-3 mb-4 md:mb-6">
+          <Car className="w-6 h-6 md:w-8 md:h-8 text-purple-400" />
           <div>
-            <h1 className="text-2xl font-bold text-white">Car Intake Form</h1>
-            <p className="text-gray-400 text-sm">Add new car to service records</p>
+            <h1 className="text-xl md:text-2xl font-bold text-white">Car Intake</h1>
+            <p className="text-gray-400 text-xs md:text-sm">Add new car to records</p>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
           {/* Car Details Section */}
           <div>
-            <h2 className="text-lg font-semibold text-white mb-4 border-b border-purple-500/20 pb-2">
+            <h2 className="text-base md:text-lg font-semibold text-white mb-3 md:mb-4 border-b border-purple-500/20 pb-2">
               Car Details
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
+                <label className="block text-gray-300 text-xs md:text-sm font-medium mb-2">
                   Car Name <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -105,14 +105,14 @@ export default function AddCar() {
                   onChange={handleChange}
                   className={`w-full bg-slate-700 text-white border ${
                     errors.name ? 'border-red-500' : 'border-purple-500/20'
-                  } rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                  } rounded-md px-3 py-2.5 md:px-4 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[44px]`}
                   placeholder="e.g., Honda City"
                 />
                 {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
               </div>
 
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
+                <label className="block text-gray-300 text-xs md:text-sm font-medium mb-2">
                   Model <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -122,14 +122,14 @@ export default function AddCar() {
                   onChange={handleChange}
                   className={`w-full bg-slate-700 text-white border ${
                     errors.model ? 'border-red-500' : 'border-purple-500/20'
-                  } rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                  } rounded-md px-3 py-2.5 md:px-4 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[44px]`}
                   placeholder="e.g., VX"
                 />
                 {errors.model && <p className="text-red-400 text-xs mt-1">{errors.model}</p>}
               </div>
 
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
+                <label className="block text-gray-300 text-xs md:text-sm font-medium mb-2">
                   Year <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -139,21 +139,21 @@ export default function AddCar() {
                   onChange={handleChange}
                   className={`w-full bg-slate-700 text-white border ${
                     errors.year ? 'border-red-500' : 'border-purple-500/20'
-                  } rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                  } rounded-md px-3 py-2.5 md:px-4 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[44px]`}
                   placeholder="e.g., 2020"
                 />
                 {errors.year && <p className="text-red-400 text-xs mt-1">{errors.year}</p>}
               </div>
 
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
+                <label className="block text-gray-300 text-xs md:text-sm font-medium mb-2">
                   Fuel Type <span className="text-red-400">*</span>
                 </label>
                 <select
                   name="fuelType"
                   value={formData.fuelType}
                   onChange={handleChange}
-                  className="w-full bg-slate-700 text-white border border-purple-500/20 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full bg-slate-700 text-white border border-purple-500/20 rounded-md px-3 py-2.5 md:px-4 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[44px]"
                 >
                   <option value="Petrol">Petrol</option>
                   <option value="Diesel">Diesel</option>
@@ -163,7 +163,7 @@ export default function AddCar() {
               </div>
 
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
+                <label className="block text-gray-300 text-xs md:text-sm font-medium mb-2">
                   KM Run <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -173,14 +173,14 @@ export default function AddCar() {
                   onChange={handleChange}
                   className={`w-full bg-slate-700 text-white border ${
                     errors.kmRun ? 'border-red-500' : 'border-purple-500/20'
-                  } rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                  } rounded-md px-3 py-2.5 md:px-4 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[44px]`}
                   placeholder="e.g., 45000"
                 />
                 {errors.kmRun && <p className="text-red-400 text-xs mt-1">{errors.kmRun}</p>}
               </div>
 
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
+                <label className="block text-gray-300 text-xs md:text-sm font-medium mb-2">
                   Expected Delivery Date <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -190,7 +190,7 @@ export default function AddCar() {
                   onChange={handleChange}
                   className={`w-full bg-slate-700 text-white border ${
                     errors.deliveryDate ? 'border-red-500' : 'border-purple-500/20'
-                  } rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                  } rounded-md px-3 py-2.5 md:px-4 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[44px]`}
                 />
                 {errors.deliveryDate && (
                   <p className="text-red-400 text-xs mt-1">{errors.deliveryDate}</p>
@@ -201,12 +201,12 @@ export default function AddCar() {
 
           {/* Owner Details Section */}
           <div>
-            <h2 className="text-lg font-semibold text-white mb-4 border-b border-purple-500/20 pb-2">
+            <h2 className="text-base md:text-lg font-semibold text-white mb-3 md:mb-4 border-b border-purple-500/20 pb-2">
               Owner Details
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
+                <label className="block text-gray-300 text-xs md:text-sm font-medium mb-2">
                   Owner Name <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -216,14 +216,14 @@ export default function AddCar() {
                   onChange={handleChange}
                   className={`w-full bg-slate-700 text-white border ${
                     errors.ownerName ? 'border-red-500' : 'border-purple-500/20'
-                  } rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                  } rounded-md px-3 py-2.5 md:px-4 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[44px]`}
                   placeholder="e.g., Rajesh Kumar"
                 />
                 {errors.ownerName && <p className="text-red-400 text-xs mt-1">{errors.ownerName}</p>}
               </div>
 
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
+                <label className="block text-gray-300 text-xs md:text-sm font-medium mb-2">
                   Contact Number <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -233,14 +233,14 @@ export default function AddCar() {
                   onChange={handleChange}
                   className={`w-full bg-slate-700 text-white border ${
                     errors.contact ? 'border-red-500' : 'border-purple-500/20'
-                  } rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                  } rounded-md px-3 py-2.5 md:px-4 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[44px]`}
                   placeholder="e.g., +91 98765 43210"
                 />
                 {errors.contact && <p className="text-red-400 text-xs mt-1">{errors.contact}</p>}
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-gray-300 text-sm font-medium mb-2">
+                <label className="block text-gray-300 text-xs md:text-sm font-medium mb-2">
                   Email Address <span className="text-red-400">*</span>
                 </label>
                 <input
@@ -250,7 +250,7 @@ export default function AddCar() {
                   onChange={handleChange}
                   className={`w-full bg-slate-700 text-white border ${
                     errors.email ? 'border-red-500' : 'border-purple-500/20'
-                  } rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                  } rounded-md px-3 py-2.5 md:px-4 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[44px]`}
                   placeholder="e.g., rajesh.kumar@example.com"
                 />
                 {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
@@ -260,11 +260,11 @@ export default function AddCar() {
 
           {/* Complaints Section */}
           <div>
-            <h2 className="text-lg font-semibold text-white mb-4 border-b border-purple-500/20 pb-2">
+            <h2 className="text-base md:text-lg font-semibold text-white mb-3 md:mb-4 border-b border-purple-500/20 pb-2">
               Service Details
             </h2>
             <div>
-              <label className="block text-gray-300 text-sm font-medium mb-2">
+              <label className="block text-gray-300 text-xs md:text-sm font-medium mb-2">
                 Complaints / Issues <span className="text-red-400">*</span>
               </label>
               <textarea
@@ -274,25 +274,25 @@ export default function AddCar() {
                 rows={4}
                 className={`w-full bg-slate-700 text-white border ${
                   errors.complaints ? 'border-red-500' : 'border-purple-500/20'
-                } rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500`}
+                } rounded-md px-3 py-2.5 md:px-4 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 min-h-[44px]`}
                 placeholder="Describe the issues or complaints..."
               />
               {errors.complaints && <p className="text-red-400 text-xs mt-1">{errors.complaints}</p>}
             </div>
           </div>
 
-          {/* Submit Button */}
-          <div className="flex justify-end space-x-4 pt-4">
+          {/* Submit Button - Mobile Optimized */}
+          <div className="flex flex-col md:flex-row md:justify-end space-y-3 md:space-y-0 md:space-x-4 pt-4">
             <button
               type="button"
               onClick={() => router.push('/')}
-              className="px-6 py-2 border border-purple-500/20 text-gray-300 rounded-md hover:bg-slate-700 transition-colors"
+              className="w-full md:w-auto px-6 py-3 md:py-2 border border-purple-500/20 text-gray-300 rounded-md hover:bg-slate-700 transition-colors min-h-[44px]"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex items-center space-x-2 px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors"
+              className="w-full md:w-auto flex items-center justify-center space-x-2 px-6 py-3 md:py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors min-h-[44px]"
             >
               <Save className="w-4 h-4" />
               <span>Save Car Intake</span>
