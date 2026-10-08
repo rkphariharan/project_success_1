@@ -59,33 +59,33 @@ export default function RootLayout({
           </nav>
 
           {/* Main Content */}
-          <main className="max-w-7xl mx-auto px-5 sm:px-5 md:px-6 lg:px-8 py-8 md:py-8 pb-32 md:pb-8">
+          <main className="max-w-7xl mx-auto px-4 lg:px-6 py-4 lg:py-8 pb-20 lg:pb-8">
             {children}
           </main>
 
           {/* Bottom Navigation - Mobile Only */}
-          <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-sm border-t-2 border-purple-500/30 z-50 safe-bottom">
-            <div className="grid grid-cols-3 h-20">
+          <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-sm border-t border-purple-500/20 z-50">
+            <div className="grid grid-cols-3 h-16">
               <Link
                 href="/"
-                className="flex flex-col items-center justify-center space-y-2 text-purple-400 active:bg-slate-800/50 transition-colors"
+                className="flex flex-col items-center justify-center space-y-1 text-purple-400 active:bg-slate-800/50 transition-colors"
               >
-                <Home className="w-7 h-7" />
-                <span className="text-sm font-semibold">Home</span>
+                <Home className="w-5 h-5" />
+                <span className="text-xs font-medium">Home</span>
               </Link>
               <Link
                 href="/add-car"
-                className="flex flex-col items-center justify-center space-y-2 text-gray-400 active:bg-slate-800/50 transition-colors"
+                className="flex flex-col items-center justify-center space-y-1 text-gray-400 active:bg-slate-800/50 transition-colors"
               >
-                <Plus className="w-7 h-7" />
-                <span className="text-sm font-semibold">Add Car</span>
+                <Plus className="w-5 h-5" />
+                <span className="text-xs font-medium">Add Car</span>
               </Link>
               <Link
                 href="/"
-                className="flex flex-col items-center justify-center space-y-2 text-gray-400 active:bg-slate-800/50 transition-colors"
+                className="flex flex-col items-center justify-center space-y-1 text-gray-400 active:bg-slate-800/50 transition-colors"
               >
-                <FileText className="w-7 h-7" />
-                <span className="text-sm font-semibold">Reports</span>
+                <FileText className="w-5 h-5" />
+                <span className="text-xs font-medium">Reports</span>
               </Link>
             </div>
           </nav>

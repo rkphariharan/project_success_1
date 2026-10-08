@@ -41,102 +41,118 @@ export default function Dashboard() {
 
   return (
     <div className="pb-24 md:pb-8">
-      {/* MOBILE VIEW - Clean & Spacious */}
-      <div className="block md:hidden space-y-8">
-        {/* Header */}
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-white mb-3">Dashboard</h1>
-          <p className="text-lg text-gray-400">Service operations overview</p>
-        </div>
-
-        {/* Stat Cards - Full Width, Stacked */}
-        <div className="space-y-5">
-          <div className="bg-slate-800/50 backdrop-blur-sm border-2 border-purple-500/30 rounded-2xl p-8">
-            <div className="flex items-center justify-between mb-4">
-              <Car className="w-14 h-14 text-purple-400" />
-              <span className="text-6xl font-bold text-white">{carsInService}</span>
+      {/* MOBILE VIEW - Compact & Efficient */}
+      <div className="block lg:hidden space-y-4">
+        {/* Stat Cards - Compact Grid */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-4">
+            <div className="flex items-center justify-between mb-2">
+              <Car className="w-8 h-8 text-purple-400" />
+              <span className="text-3xl font-bold text-white">{carsInService}</span>
             </div>
-            <h3 className="text-gray-300 text-xl font-medium">Cars In Service</h3>
+            <h3 className="text-gray-400 text-xs">In Service</h3>
           </div>
 
-          <div className="bg-slate-800/50 backdrop-blur-sm border-2 border-green-500/30 rounded-2xl p-8">
-            <div className="flex items-center justify-between mb-4">
-              <CheckCircle className="w-14 h-14 text-green-400" />
-              <span className="text-6xl font-bold text-white">{carsCompleted}</span>
+          <div className="bg-slate-800/50 backdrop-blur-sm border border-green-500/20 rounded-xl p-4">
+            <div className="flex items-center justify-between mb-2">
+              <CheckCircle className="w-8 h-8 text-green-400" />
+              <span className="text-3xl font-bold text-white">{carsCompleted}</span>
             </div>
-            <h3 className="text-gray-300 text-xl font-medium">Completed Today</h3>
+            <h3 className="text-gray-400 text-xs">Completed</h3>
           </div>
 
-          <div className="bg-slate-800/50 backdrop-blur-sm border-2 border-gold-500/30 rounded-2xl p-8">
-            <div className="flex items-center justify-between mb-4">
-              <Clock className="w-14 h-14 text-gold-400" />
-              <span className="text-6xl font-bold text-white">{carsPendingDelivery}</span>
+          <div className="bg-slate-800/50 backdrop-blur-sm border border-gold-500/20 rounded-xl p-4">
+            <div className="flex items-center justify-between mb-2">
+              <Clock className="w-8 h-8 text-gold-400" />
+              <span className="text-3xl font-bold text-white">{carsPendingDelivery}</span>
             </div>
-            <h3 className="text-gray-300 text-xl font-medium">Pending Delivery</h3>
+            <h3 className="text-gray-400 text-xs">Pending</h3>
           </div>
 
-          <div className="bg-slate-800/50 backdrop-blur-sm border-2 border-gold-500/30 rounded-2xl p-8">
-            <div className="flex items-center justify-between mb-4">
-              <DollarSign className="w-14 h-14 text-gold-400" />
-              <span className="text-5xl font-bold text-white">
+          <div className="bg-slate-800/50 backdrop-blur-sm border border-gold-500/20 rounded-xl p-4">
+            <div className="flex items-center justify-between mb-2">
+              <DollarSign className="w-8 h-8 text-gold-400" />
+              <span className="text-2xl font-bold text-white">
                 ₹{(monthlyRevenueTotal / 1000).toFixed(0)}k
               </span>
             </div>
-            <h3 className="text-gray-300 text-xl font-medium">Monthly Revenue</h3>
+            <h3 className="text-gray-400 text-xs">Revenue</h3>
           </div>
         </div>
 
-        {/* Simple Daily Stats - Just Numbers */}
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-8">
-          <h3 className="text-2xl font-semibold text-white mb-8 text-center">Today's Activity</h3>
-          <div className="grid grid-cols-2 gap-6">
-            <div className="text-center bg-slate-700/30 rounded-2xl p-6">
-              <TrendingUp className="w-10 h-10 text-purple-400 mx-auto mb-4" />
-              <span className="text-5xl font-bold text-white block mb-3">{todayCarsIn}</span>
-              <p className="text-gray-300 text-lg font-medium">Cars In</p>
+        {/* Today's Activity - Compact */}
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-4">
+          <h3 className="text-base font-semibold text-white mb-3">Today's Activity</h3>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-slate-700/30 rounded-lg p-3 text-center">
+              <TrendingUp className="w-6 h-6 text-purple-400 mx-auto mb-2" />
+              <span className="text-2xl font-bold text-white block mb-1">{todayCarsIn}</span>
+              <p className="text-gray-400 text-xs">Cars In</p>
             </div>
-            <div className="text-center bg-slate-700/30 rounded-2xl p-6">
-              <TrendingDown className="w-10 h-10 text-gold-400 mx-auto mb-4" />
-              <span className="text-5xl font-bold text-white block mb-3">{todayCarsOut}</span>
-              <p className="text-gray-300 text-lg font-medium">Cars Out</p>
+            <div className="bg-slate-700/30 rounded-lg p-3 text-center">
+              <TrendingDown className="w-6 h-6 text-gold-400 mx-auto mb-2" />
+              <span className="text-2xl font-bold text-white block mb-1">{todayCarsOut}</span>
+              <p className="text-gray-400 text-xs">Cars Out</p>
             </div>
           </div>
         </div>
 
-        {/* Recent Cars - Large Cards */}
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-8">
-          <div className="flex flex-col space-y-5 mb-8">
-            <h3 className="text-2xl font-semibold text-white">Recent Cars</h3>
+        {/* Daily Trends Chart - Mobile */}
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-4">
+          <h3 className="text-base font-semibold text-white mb-3">Weekly Trends</h3>
+          <ResponsiveContainer width="100%" height={160}>
+            <LineChart data={dailyStats}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <XAxis dataKey="date" stroke="#9ca3af" tick={{ fontSize: 10 }} />
+              <YAxis stroke="#9ca3af" tick={{ fontSize: 10 }} width={25} />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: '#1e293b',
+                  border: '1px solid #6b21a8',
+                  borderRadius: '8px',
+                  fontSize: '11px',
+                }}
+              />
+              <Line type="monotone" dataKey="intake" stroke="#a855f7" strokeWidth={2} name="In" dot={false} />
+              <Line type="monotone" dataKey="delivery" stroke="#fbbf24" strokeWidth={2} name="Out" dot={false} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Recent Cars - Compact */}
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-base font-semibold text-white">Recent Cars</h3>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full bg-slate-700 text-white border border-purple-500/20 rounded-xl px-5 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="bg-slate-700 text-white border border-purple-500/20 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-1 focus:ring-purple-500"
             >
-              <option value="All">All Status</option>
+              <option value="All">All</option>
               <option value="In Service">In Service</option>
               <option value="Completed">Completed</option>
-              <option value="Pending Delivery">Pending Delivery</option>
+              <option value="Pending Delivery">Pending</option>
             </select>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-3">
             {filteredCars.map((car) => (
               <div
                 key={car.id}
-                className="bg-slate-700/30 rounded-2xl p-7 border-2 border-purple-500/10"
+                className="bg-slate-700/30 rounded-lg p-3 border border-purple-500/10"
               >
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <Car className="w-7 h-7 text-purple-400" />
-                      <h4 className="text-white font-bold text-2xl">{car.name}</h4>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center space-x-2 flex-1">
+                    <Car className="w-4 h-4 text-purple-400 flex-shrink-0" />
+                    <div className="min-w-0">
+                      <h4 className="text-white font-semibold text-sm truncate">{car.name}</h4>
+                      <p className="text-gray-400 text-xs">
+                        {car.model} ({car.year})
+                      </p>
                     </div>
-                    <p className="text-gray-300 text-lg">
-                      {car.model} ({car.year})
-                    </p>
                   </div>
                   <span
-                    className={`inline-block px-4 py-2 rounded-xl text-base font-semibold whitespace-nowrap ${
+                    className={`inline-block px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap ml-2 ${
                       car.status === 'In Service'
                         ? 'bg-blue-500/20 text-blue-400'
                         : car.status === 'Completed'
@@ -144,35 +160,30 @@ export default function Dashboard() {
                         : 'bg-gold-500/20 text-gold-400'
                     }`}
                   >
-                    {car.status}
+                    {car.status === 'In Service' ? 'In Service' : car.status === 'Completed' ? 'Done' : 'Pending'}
                   </span>
                 </div>
 
-                <div className="space-y-4 mb-6 bg-slate-800/30 rounded-xl p-5">
-                  <div className="flex items-center space-x-3">
-                    <User className="w-6 h-6 text-gray-400" />
-                    <span className="text-gray-200 text-lg">{car.ownerName}</span>
+                <div className="space-y-1 mb-2 text-xs text-gray-400">
+                  <div className="flex items-center space-x-2">
+                    <User className="w-3 h-3" />
+                    <span className="truncate">{car.ownerName}</span>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <Phone className="w-6 h-6 text-gray-400" />
-                    <span className="text-gray-200 text-lg">{car.contact}</span>
+                  <div className="flex items-center space-x-2">
+                    <Phone className="w-3 h-3" />
+                    <span>{car.contact}</span>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-5 pt-6 border-t-2 border-purple-500/10">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="text-gray-400 text-base mb-2">Service Type</p>
-                      <p className="text-white text-lg font-semibold">{car.serviceType}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-gray-400 text-base mb-2">Delivery Date</p>
-                      <p className="text-white text-lg font-semibold">{car.deliveryDate}</p>
-                    </div>
+                <div className="flex items-center justify-between pt-2 border-t border-purple-500/10 text-xs">
+                  <div>
+                    <span className="text-gray-400">{car.serviceType}</span>
                   </div>
-                  <div className="bg-gold-500/10 rounded-xl p-5 text-center border border-gold-500/20">
-                    <p className="text-gray-400 text-base mb-2">Service Charge</p>
-                    <p className="text-gold-400 text-3xl font-bold">₹{car.serviceCharge.toLocaleString()}</p>
+                  <div className="text-right">
+                    <span className="text-gray-400">{car.deliveryDate}</span>
+                  </div>
+                  <div className="text-gold-400 font-bold text-sm">
+                    ₹{(car.serviceCharge / 1000).toFixed(1)}K
                   </div>
                 </div>
               </div>
@@ -182,7 +193,7 @@ export default function Dashboard() {
       </div>
 
       {/* DESKTOP VIEW - Keep Complex Charts */}
-      <div className="hidden md:block space-y-8">
+      <div className="hidden lg:block space-y-8">
         {/* Header */}
         <div>
           <h1 className="text-3xl font-bold text-white mb-1">Dashboard</h1>
