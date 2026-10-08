@@ -42,105 +42,101 @@ export default function Dashboard() {
   return (
     <div className="pb-24 md:pb-8">
       {/* MOBILE VIEW - Clean & Spacious */}
-      <div className="block md:hidden space-y-6">
+      <div className="block md:hidden space-y-8">
         {/* Header */}
-        <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
-          <p className="text-base text-gray-400">Service operations overview</p>
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-white mb-3">Dashboard</h1>
+          <p className="text-lg text-gray-400">Service operations overview</p>
         </div>
 
         {/* Stat Cards - Full Width, Stacked */}
-        <div className="space-y-4">
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-3">
-              <Car className="w-10 h-10 text-purple-400" />
-              <span className="text-4xl font-bold text-white">{carsInService}</span>
+        <div className="space-y-5">
+          <div className="bg-slate-800/50 backdrop-blur-sm border-2 border-purple-500/30 rounded-2xl p-8">
+            <div className="flex items-center justify-between mb-4">
+              <Car className="w-14 h-14 text-purple-400" />
+              <span className="text-6xl font-bold text-white">{carsInService}</span>
             </div>
-            <h3 className="text-gray-400 text-base">Cars In Service</h3>
+            <h3 className="text-gray-300 text-xl font-medium">Cars In Service</h3>
           </div>
 
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-green-500/20 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-3">
-              <CheckCircle className="w-10 h-10 text-green-400" />
-              <span className="text-4xl font-bold text-white">{carsCompleted}</span>
+          <div className="bg-slate-800/50 backdrop-blur-sm border-2 border-green-500/30 rounded-2xl p-8">
+            <div className="flex items-center justify-between mb-4">
+              <CheckCircle className="w-14 h-14 text-green-400" />
+              <span className="text-6xl font-bold text-white">{carsCompleted}</span>
             </div>
-            <h3 className="text-gray-400 text-base">Completed Today</h3>
+            <h3 className="text-gray-300 text-xl font-medium">Completed Today</h3>
           </div>
 
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-gold-500/20 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-3">
-              <Clock className="w-10 h-10 text-gold-400" />
-              <span className="text-4xl font-bold text-white">{carsPendingDelivery}</span>
+          <div className="bg-slate-800/50 backdrop-blur-sm border-2 border-gold-500/30 rounded-2xl p-8">
+            <div className="flex items-center justify-between mb-4">
+              <Clock className="w-14 h-14 text-gold-400" />
+              <span className="text-6xl font-bold text-white">{carsPendingDelivery}</span>
             </div>
-            <h3 className="text-gray-400 text-base">Pending Delivery</h3>
+            <h3 className="text-gray-300 text-xl font-medium">Pending Delivery</h3>
           </div>
 
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-gold-500/20 rounded-xl p-6">
-            <div className="flex items-center justify-between mb-3">
-              <DollarSign className="w-10 h-10 text-gold-400" />
-              <span className="text-3xl font-bold text-white">
+          <div className="bg-slate-800/50 backdrop-blur-sm border-2 border-gold-500/30 rounded-2xl p-8">
+            <div className="flex items-center justify-between mb-4">
+              <DollarSign className="w-14 h-14 text-gold-400" />
+              <span className="text-5xl font-bold text-white">
                 ₹{(monthlyRevenueTotal / 1000).toFixed(0)}k
               </span>
             </div>
-            <h3 className="text-gray-400 text-base">Monthly Revenue</h3>
+            <h3 className="text-gray-300 text-xl font-medium">Monthly Revenue</h3>
           </div>
         </div>
 
         {/* Simple Daily Stats - Just Numbers */}
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-          <h3 className="text-xl font-semibold text-white mb-6">Today's Activity</h3>
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-8">
+          <h3 className="text-2xl font-semibold text-white mb-8 text-center">Today's Activity</h3>
           <div className="grid grid-cols-2 gap-6">
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-2">
-                <TrendingUp className="w-6 h-6 text-purple-400 mr-2" />
-                <span className="text-4xl font-bold text-white">{todayCarsIn}</span>
-              </div>
-              <p className="text-gray-400 text-base">Cars In</p>
+            <div className="text-center bg-slate-700/30 rounded-2xl p-6">
+              <TrendingUp className="w-10 h-10 text-purple-400 mx-auto mb-4" />
+              <span className="text-5xl font-bold text-white block mb-3">{todayCarsIn}</span>
+              <p className="text-gray-300 text-lg font-medium">Cars In</p>
             </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-2">
-                <TrendingDown className="w-6 h-6 text-gold-400 mr-2" />
-                <span className="text-4xl font-bold text-white">{todayCarsOut}</span>
-              </div>
-              <p className="text-gray-400 text-base">Cars Out</p>
+            <div className="text-center bg-slate-700/30 rounded-2xl p-6">
+              <TrendingDown className="w-10 h-10 text-gold-400 mx-auto mb-4" />
+              <span className="text-5xl font-bold text-white block mb-3">{todayCarsOut}</span>
+              <p className="text-gray-300 text-lg font-medium">Cars Out</p>
             </div>
           </div>
         </div>
 
         {/* Recent Cars - Large Cards */}
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-semibold text-white">Recent Cars</h3>
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-2xl p-8">
+          <div className="flex flex-col space-y-5 mb-8">
+            <h3 className="text-2xl font-semibold text-white">Recent Cars</h3>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="bg-slate-700 text-white border border-purple-500/20 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full bg-slate-700 text-white border border-purple-500/20 rounded-xl px-5 py-4 text-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
-              <option value="All">All</option>
+              <option value="All">All Status</option>
               <option value="In Service">In Service</option>
               <option value="Completed">Completed</option>
-              <option value="Pending Delivery">Pending</option>
+              <option value="Pending Delivery">Pending Delivery</option>
             </select>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-6">
             {filteredCars.map((car) => (
               <div
                 key={car.id}
-                className="bg-slate-700/30 rounded-xl p-5 border border-purple-500/10"
+                className="bg-slate-700/30 rounded-2xl p-7 border-2 border-purple-500/10"
               >
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start justify-between mb-6">
                   <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <Car className="w-5 h-5 text-purple-400" />
-                      <h4 className="text-white font-semibold text-xl">{car.name}</h4>
+                    <div className="flex items-center space-x-3 mb-3">
+                      <Car className="w-7 h-7 text-purple-400" />
+                      <h4 className="text-white font-bold text-2xl">{car.name}</h4>
                     </div>
-                    <p className="text-gray-400 text-base">
+                    <p className="text-gray-300 text-lg">
                       {car.model} ({car.year})
                     </p>
                   </div>
                   <span
-                    className={`inline-block px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap ${
+                    className={`inline-block px-4 py-2 rounded-xl text-base font-semibold whitespace-nowrap ${
                       car.status === 'In Service'
                         ? 'bg-blue-500/20 text-blue-400'
                         : car.status === 'Completed'
@@ -152,29 +148,31 @@ export default function Dashboard() {
                   </span>
                 </div>
 
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-center space-x-2">
-                    <User className="w-4 h-4 text-gray-400" />
-                    <span className="text-gray-300 text-base">{car.ownerName}</span>
+                <div className="space-y-4 mb-6 bg-slate-800/30 rounded-xl p-5">
+                  <div className="flex items-center space-x-3">
+                    <User className="w-6 h-6 text-gray-400" />
+                    <span className="text-gray-200 text-lg">{car.ownerName}</span>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Phone className="w-4 h-4 text-gray-400" />
-                    <span className="text-gray-300 text-base">{car.contact}</span>
+                  <div className="flex items-center space-x-3">
+                    <Phone className="w-6 h-6 text-gray-400" />
+                    <span className="text-gray-200 text-lg">{car.contact}</span>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-purple-500/10">
-                  <div>
-                    <p className="text-gray-400 text-sm mb-1">Service</p>
-                    <p className="text-white text-base font-medium">{car.serviceType}</p>
+                <div className="grid grid-cols-1 gap-5 pt-6 border-t-2 border-purple-500/10">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-gray-400 text-base mb-2">Service Type</p>
+                      <p className="text-white text-lg font-semibold">{car.serviceType}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-gray-400 text-base mb-2">Delivery Date</p>
+                      <p className="text-white text-lg font-semibold">{car.deliveryDate}</p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-gray-400 text-sm mb-1">Delivery</p>
-                    <p className="text-white text-base font-medium">{car.deliveryDate}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-gray-400 text-sm mb-1">Charge</p>
-                    <p className="text-gold-400 text-xl font-bold">₹{car.serviceCharge.toLocaleString()}</p>
+                  <div className="bg-gold-500/10 rounded-xl p-5 text-center border border-gold-500/20">
+                    <p className="text-gray-400 text-base mb-2">Service Charge</p>
+                    <p className="text-gold-400 text-3xl font-bold">₹{car.serviceCharge.toLocaleString()}</p>
                   </div>
                 </div>
               </div>
